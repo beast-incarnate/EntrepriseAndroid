@@ -1,6 +1,7 @@
 package com.example.kunalsingh.entreprise.ui.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,7 +16,6 @@ public class SelectorActivity extends AppCompatActivity {
 
 
     private int selector=0;
-
     @BindView(R.id.buttonClient)
     Button btnClient;
 
@@ -47,6 +47,7 @@ public class SelectorActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
 
     }
 }

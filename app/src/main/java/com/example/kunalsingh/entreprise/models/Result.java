@@ -3,6 +3,7 @@ package com.example.kunalsingh.entreprise.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -10,6 +11,10 @@ import java.util.HashMap;
  */
 
 public class Result {
+
+    @SerializedName("array_data")
+    @Expose
+    private ArrayList<HashMap<String,String>> arrayData;
 
     @SerializedName("data")
     @Expose
@@ -31,7 +36,16 @@ public class Result {
     @Expose
     private String disabled;
 
+    public ArrayList<HashMap<String, String>> getArrayData() {
+        return arrayData;
+    }
+
+    public void setArrayData(ArrayList<HashMap<String, String>> arrayData) {
+        this.arrayData = arrayData;
+    }
+
     @SerializedName("update")
+
     @Expose
     private String update;
 

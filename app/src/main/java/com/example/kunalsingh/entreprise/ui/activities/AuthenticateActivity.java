@@ -1,6 +1,7 @@
 package com.example.kunalsingh.entreprise.ui.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,6 +32,7 @@ public class AuthenticateActivity extends AppCompatActivity {
     private Observable<Result> observable;
     private int selector;
     private static final String TAG = "AuthenticateActivity";
+    public static final String MY_FILE = "my_file";
     @BindView(R.id.editTextEmail)
     EditText etEmail;
 
@@ -111,6 +113,11 @@ public class AuthenticateActivity extends AppCompatActivity {
                                     if(value.getData().get("access_token")==null){
                                         Toast.makeText(AuthenticateActivity.this, "Invalid Details", Toast.LENGTH_SHORT).show();
                                     }else{
+                                        SharedPreferences sharedPreferences = getSharedPreferences(MY_FILE,MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                                        editor.putString("access_token",value.getData().get("access_token"));
+                                        editor.putInt("selector",selector);
+                                        editor.commit();
                                             Intent intent = new Intent(AuthenticateActivity.this,ClientMainActivity.class);
                                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -153,10 +160,14 @@ public class AuthenticateActivity extends AppCompatActivity {
                                     if(value.getData().get("access_token")==null){
                                         Toast.makeText(AuthenticateActivity.this, "Invalid Details", Toast.LENGTH_SHORT).show();
                                     }else{
-                                        Intent intent = new Intent(AuthenticateActivity.this,ClientMainActivity.class);
+                                        SharedPreferences sharedPreferences = getSharedPreferences(MY_FILE,MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                                        editor.putString("access_token",value.getData().get("access_token"));
+                                        editor.putInt("selector",selector);
+                                        editor.commit();
+                                        Intent intent = new Intent(AuthenticateActivity.this,SellerMainActivity.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        intent.putExtra("access_token",value.getData().get("access_token"));
                                         intent.putExtra("selector",selector);
                                         startActivity(intent);
                                     }
