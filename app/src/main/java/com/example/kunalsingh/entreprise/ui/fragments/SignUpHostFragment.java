@@ -2,6 +2,7 @@ package com.example.kunalsingh.entreprise.ui.fragments;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -55,6 +56,8 @@ public class SignUpHostFragment extends Fragment {
     private static final String TAG = "SignUpHostFragment";
 
     private Observable<Result> observable;
+
+    public static final String MY_FILE = "my_file";
 
     public SignUpHostFragment() {
         // Required empty public constructor
@@ -118,6 +121,11 @@ public class SignUpHostFragment extends Fragment {
                             Intent intent = new Intent(getContext(), ClientMainActivity.class);
                             intent.putExtra("access_token", value.getData().get("access_token"));
                             intent.putExtra("selector", 2);
+                            SharedPreferences sharedPreferences = getContext().getSharedPreferences(MY_FILE,getContext().MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("access_token",value.getData().get("access_token"));
+                            editor.putInt("selector",2);
+                            editor.commit();
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);

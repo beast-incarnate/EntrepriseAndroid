@@ -13,16 +13,16 @@ import com.example.kunalsingh.entreprise.R;
  * Created by kunalsingh on 21/06/17.
  */
 
-public class FragmentThreeClient extends Fragment {
+public class FragmentOne extends Fragment {
 
-    public FragmentThreeClient() {
+    public FragmentOne() {
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view =inflater.inflate(R.layout.fragment_three_client,container,false);
+        View view = inflater.inflate(R.layout.fragment_one_client,container,false);
 
         return view;
     }

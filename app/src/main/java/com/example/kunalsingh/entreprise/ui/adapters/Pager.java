@@ -3,11 +3,10 @@ package com.example.kunalsingh.entreprise.ui.adapters;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.util.Log;
 
-import com.example.kunalsingh.entreprise.ui.fragments.FragmentOneClient;
-import com.example.kunalsingh.entreprise.ui.fragments.FragmentThreeClient;
-import com.example.kunalsingh.entreprise.ui.fragments.FragmentTwoClient;
+import com.example.kunalsingh.entreprise.ui.fragments.FragmentOne;
+import com.example.kunalsingh.entreprise.ui.fragments.FragmentThree;
+import com.example.kunalsingh.entreprise.ui.fragments.FragmentTwo;
 
 /**
  * Created by kunalsingh on 21/06/17.
@@ -28,14 +27,13 @@ public class Pager extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return new FragmentOneClient();
+                return new FragmentOne();
 
             case 1 :
-                Log.d(TAG,"came in two");
-                return  new FragmentTwoClient();
+                return  new FragmentTwo();
 
             case 2 :
-                return new FragmentThreeClient();
+                return new FragmentThree();
 
             default: return null;
         }

@@ -9,7 +9,7 @@ public class ApiUtils {
 
     private ApiUtils(){}
 
-    public static final String BASE_URL = "http://192.168.43.151:3000/api/v1/";
+    public static final String BASE_URL = "http://100.72.88.178:3000/api/v1/";
 
     public static HostSignUpService getHostSignUpService(){
 
@@ -52,4 +52,7 @@ public class ApiUtils {
         return RetrofitClient.getClient(BASE_URL).create(HostGetAllItemsService.class);
     }
 
+    public static ClientGetAllHostService getAllHostService(){
+        return RetrofitClient.getClient(BASE_URL).create(ClientGetAllHostService.class);
+    }
 }

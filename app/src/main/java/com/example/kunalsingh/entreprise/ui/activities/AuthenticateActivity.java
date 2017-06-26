@@ -116,6 +116,7 @@ public class AuthenticateActivity extends AppCompatActivity {
                                         SharedPreferences sharedPreferences = getSharedPreferences(MY_FILE,MODE_PRIVATE);
                                         SharedPreferences.Editor editor = sharedPreferences.edit();
                                         editor.putString("access_token",value.getData().get("access_token"));
+                                        editor.putInt("id",Integer.parseInt(value.getData().get("id")));
                                         editor.putInt("selector",selector);
                                         editor.commit();
                                             Intent intent = new Intent(AuthenticateActivity.this,ClientMainActivity.class);

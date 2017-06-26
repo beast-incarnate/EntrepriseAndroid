@@ -42,13 +42,6 @@ public class ClientMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
-
-        Intent intent = getIntent();
-        String accessToken = intent.getStringExtra("access_token");
-        int selector = intent.getIntExtra("selector", 0);
-
-        Toast.makeText(this, "access_token: " + accessToken + " selector: " + selector, Toast.LENGTH_LONG).show();
-
         Pager pagerAdapter = new Pager(getSupportFragmentManager(), new String[]{"SELLER", "STATUS", "CHATS"});
         viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
