@@ -34,19 +34,18 @@ import io.reactivex.schedulers.Schedulers;
  * Created by kunalsingh on 21/06/17.
  */
 
-public class FragmentThree extends Fragment {
+public class FragmentThreeClient extends Fragment {
 
     @BindView(R.id.rv_index)
     RecyclerView rvIndex;
 
-    public FragmentThree() {
+    public FragmentThreeClient() {
     }
 
-    private ClientGetAllHostService clientGetAllHostService;
     private Observable<Result> mObservable;
     private RecyclerViewAdapterIndex rvAdapter;
     private ArrayList<Host> name = new ArrayList<Host>();
-    private static final String TAG = "FragmentThree";
+    private static final String TAG = "FragmentThreeClient";
 
     @Nullable
     @Override
@@ -65,12 +64,16 @@ public class FragmentThree extends Fragment {
         rvAdapter.notifyDataSetChanged();
         if(selector==1){
             onClientSelected(view,access_token);
+        }else if(selector==2){
+            onSellerSelected(access_token);
         }else{
-            
+            Toast.makeText(getContext(), "Invalid Selector", Toast.LENGTH_SHORT).show();
         }
 
         return view;
     }
+
+
 
     @Override
     public void onDestroyView() {
@@ -83,38 +86,21 @@ public class FragmentThree extends Fragment {
 
        
         if(!access_token.equals("")) {
-            clientGetAllHostService = ApiUtils.getAllHostService();
-            mObservable = clientGetAllHostService.getAllHosts(access_token);
-            mObservable.subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Observer<Result>() {
-                        @Override
-                        public void onSubscribe(Disposable d) {
-
-                        }
-
-                        @Override
-                        public void onNext(Result value) {
-                            for(HashMap<String,String>map:value.getArrayData()){
-                                name.add(new Host(map.get("name"),Integer.parseInt(map.get("id"))));
-                            }
-                            rvAdapter.notifyDataSetChanged();
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-                            Toast.makeText(getContext(), "Error: "+e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-
-                        @Override
-                        public void onComplete() {
-                            mObservable.unsubscribeOn(Schedulers.io());
-                        }
-                    });
 
         }else{
             Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
         }
         
+    }
+
+    private void onSellerSelected(String access_token) {
+
+        if(!access_token.equals("")){
+
+        }else{
+            Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+        }
+
+
     }
 }

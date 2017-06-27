@@ -27,10 +27,10 @@ import io.reactivex.schedulers.Schedulers;
  * Created by kunalsingh on 21/06/17.
  */
 
-public class FragmentTwo extends Fragment {
+public class FragmentTwoClient extends Fragment {
 
-    private static final String TAG = "FragmentTwo";
-    public FragmentTwo() {
+    private static final String TAG = "FragmentTwoClient";
+    public FragmentTwoClient() {
     }
     private Observable<Result> observable;
     @Nullable

@@ -13,9 +13,9 @@ import com.example.kunalsingh.entreprise.R;
  * Created by kunalsingh on 21/06/17.
  */
 
-public class FragmentOne extends Fragment {
+public class FragmentOneClient extends Fragment {
 
-    public FragmentOne() {
+    public FragmentOneClient() {
     }
 
     @Nullable

@@ -20,7 +20,7 @@ public class Result {
     @Expose
     private HashMap<String,String> data;
 
-    @SerializedName("message")
+    @SerializedName("message_one")
     @Expose
     private String message;
 

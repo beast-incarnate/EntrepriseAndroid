@@ -119,7 +119,7 @@ public class SignUpClientFragment extends Fragment {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.d(TAG,"message : "+e.getMessage());
+                        Log.d(TAG,"message_one : "+e.getMessage());
                     }
 
                     @Override

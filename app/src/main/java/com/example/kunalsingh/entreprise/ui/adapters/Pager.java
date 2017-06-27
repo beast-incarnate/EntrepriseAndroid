@@ -4,9 +4,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.example.kunalsingh.entreprise.ui.fragments.FragmentOne;
-import com.example.kunalsingh.entreprise.ui.fragments.FragmentThree;
-import com.example.kunalsingh.entreprise.ui.fragments.FragmentTwo;
+import com.example.kunalsingh.entreprise.ui.fragments.FragmentOneClient;
+import com.example.kunalsingh.entreprise.ui.fragments.FragmentThreeClient;
+import com.example.kunalsingh.entreprise.ui.fragments.FragmentTwoClient;
 
 /**
  * Created by kunalsingh on 21/06/17.
@@ -27,13 +27,13 @@ public class Pager extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return new FragmentOne();
+                return new FragmentOneClient();
 
             case 1 :
-                return  new FragmentTwo();
+                return  new FragmentTwoClient();
 
             case 2 :
-                return new FragmentThree();
+                return new FragmentThreeClient();
 
             default: return null;
         }

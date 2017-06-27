@@ -19,6 +19,7 @@ public class RecyclerViewAdapterMessage extends RecyclerView.Adapter<RecyclerVie
     public RecyclerViewAdapterMessage(ArrayList<Message> mMessage, Context mContext) {
         this.mMessage = mMessage;
         this.mContext = mContext;
+
     }
 
 
@@ -26,7 +27,8 @@ public class RecyclerViewAdapterMessage extends RecyclerView.Adapter<RecyclerVie
     public RecyclerViewHolderMessage onCreateViewHolder(ViewGroup parent, int viewType) {
 
         LayoutInflater layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        return new RecyclerViewHolderMessage(layoutInflater.inflate(R.layout.message,null));
+        return new RecyclerViewHolderMessage(layoutInflater.inflate(R.layout.message_one,null));
+
     }
 
     @Override
