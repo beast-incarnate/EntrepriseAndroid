@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.example.kunalsingh.entreprise.R;
 import com.example.kunalsingh.entreprise.api.service.ApiUtils;
-import com.example.kunalsingh.entreprise.api.service.ClientGetAllHostService;
+import com.example.kunalsingh.entreprise.api.service.GetClientHostMapping;
 import com.example.kunalsingh.entreprise.models.Host;
 import com.example.kunalsingh.entreprise.models.Result;
 import com.example.kunalsingh.entreprise.ui.adapters.RecyclerViewAdapterIndex;
@@ -36,15 +36,16 @@ import io.reactivex.schedulers.Schedulers;
 
 public class FragmentThreeClient extends Fragment {
 
-    @BindView(R.id.rv_index)
+    @BindView(R.id.rv_index_client)
     RecyclerView rvIndex;
 
     public FragmentThreeClient() {
     }
 
     private Observable<Result> mObservable;
+    private GetClientHostMapping getClientHostMapping;
     private RecyclerViewAdapterIndex rvAdapter;
-    private ArrayList<Host> name = new ArrayList<Host>();
+    private ArrayList<Host> hosts = new ArrayList<Host>();
     private static final String TAG = "FragmentThreeClient";
 
     @Nullable
@@ -57,19 +58,44 @@ public class FragmentThreeClient extends Fragment {
 
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("my_file",0);
         String access_token = sharedPreferences.getString("access_token","");
-        int selector = sharedPreferences.getInt("selector",0);
-        rvAdapter = new RecyclerViewAdapterIndex(name,getContext());
+        rvAdapter = new RecyclerViewAdapterIndex(hosts,getContext());
         rvIndex.setLayoutManager(new LinearLayoutManager(getContext()));
         rvIndex.setAdapter(rvAdapter);
         rvAdapter.notifyDataSetChanged();
-        if(selector==1){
-            onClientSelected(view,access_token);
-        }else if(selector==2){
-            onSellerSelected(access_token);
-        }else{
-            Toast.makeText(getContext(), "Invalid Selector", Toast.LENGTH_SHORT).show();
-        }
+        getClientHostMapping = ApiUtils.getClientHostMapping();
+        if(!access_token.equals("")) {
+            mObservable = getClientHostMapping.getClientHostMapping(access_token);
 
+            mObservable.subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Observer<Result>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onNext(Result value) {
+                                for(HashMap<String,String> map:value.getArrayData()){
+                                    hosts.add(new Host(map.get("host_name"),Integer.parseInt(map.get("host_id"))));
+                                }
+                                rvAdapter.notifyDataSetChanged();
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                    Log.d(TAG,"Error: "+e.getMessage());
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                mObservable.unsubscribeOn(Schedulers.io());
+                            }
+                        });
+
+        }else{
+            Toast.makeText(getContext(), "Invalid access Token", Toast.LENGTH_SHORT).show();
+        }
         return view;
     }
 
@@ -81,26 +107,5 @@ public class FragmentThreeClient extends Fragment {
             mObservable.unsubscribeOn(Schedulers.io());
         super.onDestroyView();
     }
-    
-    private void onClientSelected(View view , String access_token){
 
-       
-        if(!access_token.equals("")) {
-
-        }else{
-            Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
-        }
-        
-    }
-
-    private void onSellerSelected(String access_token) {
-
-        if(!access_token.equals("")){
-
-        }else{
-            Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
-        }
-
-
-    }
 }

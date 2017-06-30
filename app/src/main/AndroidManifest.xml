@@ -14,20 +14,21 @@
         <activity android:name=".ui.activities.ClientMainActivity" />
         <activity
             android:name=".ui.activities.SelectorActivity"
-            android:theme="@style/MyTheme">
-        </activity>
+            android:theme="@style/MyTheme"></activity>
         <activity android:name=".ui.activities.AuthenticateActivity" />
         <activity android:name=".ui.activities.SignUpActivity" />
         <activity android:name=".ui.activities.SellerMainActivity" />
         <activity
             android:name=".ui.activities.ChatActivity"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".ui.activities.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.activities.ItemActivity"></activity>
     </application>
 
 </manifest>

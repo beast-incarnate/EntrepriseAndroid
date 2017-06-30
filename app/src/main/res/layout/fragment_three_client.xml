@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
 <android.support.v7.widget.RecyclerView
-    android:id="@+id/rv_index"
+    android:id="@+id/rv_index_client"
     android:layout_width="344dp"
     android:layout_height="495dp"
     app:layout_constraintTop_toTopOf="parent"

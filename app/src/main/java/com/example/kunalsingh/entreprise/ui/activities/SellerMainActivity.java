@@ -36,7 +36,7 @@ public class SellerMainActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        Pager pagerAdapter = new Pager(getSupportFragmentManager(), new String[]{"STATUS", "ITEMS", "CHATS"});
+        Pager pagerAdapter = new Pager(getSupportFragmentManager(), new String[]{"STATUS", "ITEMS", "CHATS"},this);
         viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
         pagerAdapter.notifyDataSetChanged();
@@ -61,6 +61,7 @@ public class SellerMainActivity extends AppCompatActivity {
                 SharedPreferences sharedPreferences = getSharedPreferences(MY_FILE,MODE_PRIVATE);
                 sharedPreferences.edit().remove("selector").commit();
                 sharedPreferences.edit().remove("access_token").commit();
+                sharedPreferences.edit().remove("id").commit();
                 Intent intent = new Intent(this,SelectorActivity.class);
                 startActivity(intent);
                 finish();

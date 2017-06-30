@@ -23,7 +23,7 @@ public class RecyclerViewAdapterIndex extends RecyclerView.Adapter<RecyclerViewH
 
     private ArrayList<Host> mHost;
     private Context mContext;
-    private static final String TAG = "RecyclerViewAdapterInde";
+    private static final String TAG = "RecyclerViewAdapterxx";
     
     public RecyclerViewAdapterIndex(ArrayList<Host> mHost , Context mContext) {
         this.mHost = mHost;

@@ -14,7 +14,6 @@ import butterknife.ButterKnife;
 
 public class SelectorActivity extends AppCompatActivity {
 
-
     private int selector=0;
     @BindView(R.id.buttonClient)
     Button btnClient;
@@ -47,7 +46,5 @@ public class SelectorActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
     }
 }

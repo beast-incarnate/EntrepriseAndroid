@@ -48,7 +48,7 @@ public class ClientMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
-        Pager pagerAdapter = new Pager(getSupportFragmentManager(), new String[]{"ONGOING", "COMPLETED", "CHATS"});
+        Pager pagerAdapter = new Pager(getSupportFragmentManager(), new String[]{"ONGOING", "COMPLETED", "CHATS"},this);
         viewPager.setAdapter(pagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
         pagerAdapter.notifyDataSetChanged();
@@ -70,6 +70,7 @@ public class ClientMainActivity extends AppCompatActivity {
                 SharedPreferences sharedPreferences = getSharedPreferences(MY_FILE,MODE_PRIVATE);
                 sharedPreferences.edit().remove("selector").commit();
                 sharedPreferences.edit().remove("access_token").commit();
+                sharedPreferences.edit().remove("id").commit();
                 Intent intent = new Intent(this,SelectorActivity.class);
                 startActivity(intent);
                 finish();

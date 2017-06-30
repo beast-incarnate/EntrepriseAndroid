@@ -9,7 +9,7 @@ public class ApiUtils {
 
     private ApiUtils(){}
 
-    public static final String BASE_URL = "http://192.168.43.151:3000/api/v1/";
+    public static final String BASE_URL = "http://100.72.88.136:3000/api/v1/";
 
     public static HostSignUpService getHostSignUpService(){
 

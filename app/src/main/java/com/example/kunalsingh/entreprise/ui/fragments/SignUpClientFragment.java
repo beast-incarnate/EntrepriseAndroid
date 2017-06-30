@@ -1,6 +1,7 @@
 package com.example.kunalsingh.entreprise.ui.fragments;
 
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -81,9 +82,9 @@ public class SignUpClientFragment extends Fragment {
     }
 
     private void sendSignUpRequest() {
+        final ProgressDialog mDialog = new ProgressDialog(getContext());
+        mDialog.setMessage("Signing up as a client");
         mClientSignUpService = ApiUtils.getClientSignUpService();
-
-
         observable = mClientSignUpService.signUpClient(etNameClient.getText().toString(),
                 etEmailClient.getText().toString(),
                 etPasswordClient.getText().toString(),
@@ -107,6 +108,7 @@ public class SignUpClientFragment extends Fragment {
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putString("access_token",value.getData().get("access_token"));
                             editor.putInt("selector",1);
+                            editor.putInt("id",Integer.parseInt(value.getData().get("id")));
                             editor.commit();
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -114,12 +116,13 @@ public class SignUpClientFragment extends Fragment {
                         }else{
                             Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
                         }
-
+                        mDialog.dismiss();
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         Log.d(TAG,"message_one : "+e.getMessage());
+                        mDialog.dismiss();
                     }
 
                     @Override

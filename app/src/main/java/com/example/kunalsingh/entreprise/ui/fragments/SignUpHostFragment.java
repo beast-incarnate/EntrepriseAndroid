@@ -1,6 +1,7 @@
 package com.example.kunalsingh.entreprise.ui.fragments;
 
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import com.example.kunalsingh.entreprise.api.service.ApiUtils;
 import com.example.kunalsingh.entreprise.api.service.HostSignUpService;
 import com.example.kunalsingh.entreprise.models.Result;
 import com.example.kunalsingh.entreprise.ui.activities.ClientMainActivity;
+import com.example.kunalsingh.entreprise.ui.activities.SellerMainActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -86,19 +88,16 @@ public class SignUpHostFragment extends Fragment {
     }
 
     private void signUpHost() {
-
         if (valid()) {
-
             senSignUpRequest();
-
-
         }else{
             Toast.makeText(getContext(), "Invalid Entries", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     private void senSignUpRequest() {
+        final ProgressDialog mDialog = new ProgressDialog(getContext());
+        mDialog.setMessage("Signing up as a Seller");
         observable = mHostSignUpService.signUpHost(etHostName.getText().toString(),
                 etHostEmail.getText().toString(),
                 etHostAddress.getText().toString(),
@@ -118,13 +117,14 @@ public class SignUpHostFragment extends Fragment {
 
                         if(value.getData().get("access_token")!=null) {
 
-                            Intent intent = new Intent(getContext(), ClientMainActivity.class);
+                            Intent intent = new Intent(getContext(), SellerMainActivity.class);
                             intent.putExtra("access_token", value.getData().get("access_token"));
                             intent.putExtra("selector", 2);
                             SharedPreferences sharedPreferences = getContext().getSharedPreferences(MY_FILE,getContext().MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putString("access_token",value.getData().get("access_token"));
                             editor.putInt("selector",2);
+                            editor.putInt("id",Integer.parseInt(value.getData().get("id")));
                             editor.commit();
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -132,11 +132,13 @@ public class SignUpHostFragment extends Fragment {
                         }else{
                             Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
                         }
+                        mDialog.dismiss();
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         Log.d(TAG,"message_one : "+e.getMessage());
+                        mDialog.dismiss();
                     }
 
                     @Override

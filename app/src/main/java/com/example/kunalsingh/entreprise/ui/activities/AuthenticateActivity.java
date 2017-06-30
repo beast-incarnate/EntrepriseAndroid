@@ -1,5 +1,6 @@
 package com.example.kunalsingh.entreprise.ui.activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -91,15 +92,12 @@ public class AuthenticateActivity extends AppCompatActivity {
     }
 
     private void signIn(String email, String password) {
-
+        final ProgressDialog mDialog = new ProgressDialog(this);
             if(!email.equals("")&&!password.equals("")){
-
                 if(selector==1){
+                    mDialog.setMessage("Signing in as a Client");
                     mClientSignInService = ApiUtils.getClientSignInService();
-
-
                     observable = mClientSignInService.signInCLient(email,password);
-
                     observable.subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(new Observer<Result>() {
@@ -126,13 +124,13 @@ public class AuthenticateActivity extends AppCompatActivity {
                                             intent.putExtra("selector",selector);
                                             startActivity(intent);
                                     }
-
-
+                                    mDialog.dismiss();
                                 }
 
                                 @Override
                                 public void onError(Throwable e) {
                                     Log.d(TAG,"message_one: "+e.getMessage());
+                                    mDialog.dismiss();
                                 }
 
                                 @Override
@@ -142,11 +140,9 @@ public class AuthenticateActivity extends AppCompatActivity {
                             });
 
                 }else if(selector==2){
+                    mDialog.setMessage("Signing in as Seller");
                     mHostSignInService = ApiUtils.getHostSignInService();
-
-
                     observable = mHostSignInService.signInHost(email,password);
-
                     observable.subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(new Observer<Result>() {
@@ -164,6 +160,7 @@ public class AuthenticateActivity extends AppCompatActivity {
                                         SharedPreferences sharedPreferences = getSharedPreferences(MY_FILE,MODE_PRIVATE);
                                         SharedPreferences.Editor editor = sharedPreferences.edit();
                                         editor.putString("access_token",value.getData().get("access_token"));
+                                        editor.putInt("id",Integer.parseInt(value.getData().get("id")));
                                         editor.putInt("selector",selector);
                                         editor.commit();
                                         Intent intent = new Intent(AuthenticateActivity.this,SellerMainActivity.class);
@@ -172,13 +169,13 @@ public class AuthenticateActivity extends AppCompatActivity {
                                         intent.putExtra("selector",selector);
                                         startActivity(intent);
                                     }
-
-
+                                    mDialog.dismiss();
                                 }
 
                                 @Override
                                 public void onError(Throwable e) {
                                     Log.d(TAG,"message_one: "+e.getMessage());
+                                    mDialog.dismiss();
                                 }
 
                                 @Override
